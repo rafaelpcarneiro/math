@@ -1,0 +1,280 @@
+% vim: foldmethod=marker: 
+\documentclass[11pt,twoside,a4paper]{article}
+
+%|--- Packages and Configs {{{1
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    
+\usepackage[brazil]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumerate}
+
+\usepackage{bbm} %% \mathbbm{1} gives you the identity function symbol 1
+
+%%% allows you to insert many figures indexed by (a), (b), ... on a figure environment
+\usepackage{float} 
+\usepackage[caption = false]{subfig}
+
+\usepackage{tikz}
+\usetikzlibrary{snakes} %% produces curly arrows on tikz
+\usetikzlibrary{matrix} %% for commutative diagrams
+\usetikzlibrary{arrows}
+
+\usepackage{ifthen} %% gives if conditionals when using newcommand
+
+\setcounter{secnumdepth}{0} %%% this will print the section titles on tableofcontens without inserting numbers.
+%% Garamond fonts 
+%% \usepackage{ebgaramond}
+%% \usepackage[ugm]{mathdesign}
+% 1}}}
+
+%|--- Author, Title and Date {{{1
+\title{Any non-finite sigma algebra is not countable}
+\author{Rafael Polli Carneiro}
+\date{} 
+% 1}}}
+
+%|--- Math operators {{{1
+\DeclareMathOperator {\card}{card}
+\DeclareMathOperator {\Id}{\mathbbm{1}}
+\DeclareMathOperator {\N}{\mathbb{N}}
+
+
+
+\DeclareTextFontCommand{\emph}{\bfseries\em} %% redefining \emph{} with bold and italic font
+\DeclareMathOperator{\definedAs}{\vcentcolon = }
+
+\DeclareMathOperator{\RMod}{ R-\text{módulo}}
+\DeclareMathOperator {\Imagem}{ Im }
+% 1}}}
+
+%|--- Theorems {{{1
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+% 1}}}
+
+%|--- Begin Document {{{1
+\begin{document}
+\maketitle
+
+Let's prove the statement of the title. But first 
+\begin{definition}
+    Let $\Omega$ be a non-empty set. Then any collection of subsets of
+    $\Omega$, namely $\mathcal{A}$, is a $\sigma$-algebra of $\Omega$ if
+    it the satisfies following properties
+    \begin{enumerate}[(i)]
+        \item 
+            $A \in \mathcal{A} \implies A \subseteq \Omega$;
+
+        \item
+            $\emptyset \in \Omega$;
+
+        \item
+            For any countable subset of $\mathcal{A}$ we have that
+            its union is still an element of $\mathcal{A}$. That
+            is:
+            \begin{equation*}
+                \forall \mathcal{F} \subseteq \mathcal{A},
+                \;
+                \text{if } \mathcal{F} \text{ is countable}
+                \implies
+                \bigcup \mathcal{F} \in \mathcal{A}.
+            \end{equation*}
+
+        \item
+            For any $A \in \mathcal{A}$ we have $A^c \in \mathcal{A}$.
+    \end{enumerate}
+\end{definition}
+
+Now, given the definition of a $\sigma$-algebra, we will prove the 
+desired.
+\begin{proposition}
+    Any non-finite $\sigma$-algebra of a set $\Omega$ is not countable.    
+\end{proposition}
+
+\begin{proof}
+    Let $\mathcal{A}$ be a non-finite $\sigma$-algebra of subsets of
+    $\Omega$ ($\Omega$ non-empty). We start noticing that it must exist
+    a subset $A_0 \in \mathcal{A}$ such that
+    \begin{equation*}
+        A_0 \neq \emptyset
+        \quad \text{and} \quad
+        A_0 \neq \Omega.
+    \end{equation*}
+    With that we can break $\Omega$ into two slices $A_0$ and $A_0^c$.
+    Here $A_0^c \in \mathcal{A}$ because of the property of a $\sigma$-algebra.
+    That is
+    \begin{equation*}
+        \begin{tikzpicture}[scale=5]
+            \draw[|-|] (0,0)--(1,0) node[midway, above] {$A_0$};
+            \draw[|-|]   (1,0) -- (2,0) node[midway, above] {$A_0^c$};
+        \end{tikzpicture}
+    \end{equation*}
+    Now, it comes from the hypothesis that $\mathcal{A}$ is not finite
+    that either
+    \begin{equation*}
+        \card \{A \in \mathcal{A}; \; A \subseteq A_0\} < \infty
+        \quad \text{or} \quad
+        \card \{A \in \mathcal{A}; \; A \subseteq A_0^c\} < \infty.
+    \end{equation*}
+    This is true due to the fact that for all $A \in \mathcal{A}$
+    we have $A = (A\cap A_0) \cup (A\cap A_0^c)$ which means
+    \begin{equation*}
+        \mathcal{A} = (\mathcal{A}\cap A_0) \bigcup (\mathcal{A}\cap A_0^c),
+    \end{equation*}
+    where 
+    \begin{equation*}
+        \mathcal{A}\cap B \definedAs  \{A \cap B;\; A \in \mathcal{B}\}
+    \end{equation*}
+    and $B \subseteq \Omega$ a set.
+    Then, if both $\mathcal{A}\cap A_0, \mathcal{A}\cap A_0^c$ were
+    finite  $\mathcal{A}$ would be also finite, which is impossible 
+    by hypothese. 
+
+    Let's consider, without loss of generalization, that $\mathcal{A}\cap A_0$
+    is not finite. What we will observe is that we can continue this argument
+    recursively. This is so beacuse $\mathcal{A}\cap A_0$ is also a $sigma$-algebra,
+    which as showed before is not finite. Therefore, we can build by 
+    induction a sequence of $\sigma$-algebras 
+    \begin{equation*}
+        \mathcal{A} \cap A_0 \supseteq \mathcal{A} \cap A_1 \supseteq \mathcal{A} \cap A_2
+        \supseteq \cdots \supseteq
+        \mathcal{A} \cap A_n \supseteq \mathcal{A} \cap A_{n+1} \cdots
+    \end{equation*}
+    where for each index $i \in \N \cup \{0\}$ there is a point $x_{i}$
+    such that  $x_i \notin A_{i+1}$. In other words, we have the following
+    \begin{equation*}
+        \begin{tikzpicture}[
+            every path/.style={thick}
+            ]
+            %\draw[-,dashed,red] (8,1) -- (8,-5);
+            %\draw[-,dashed,red] (4,1) -- (4,-5);
+            %\draw[-,dashed,red] (2,1) -- (2,-5);
+            %\draw[-,dashed,red] (1,1) -- (1,-5);
+
+            \draw[|-|] (0,0) -- (16,0) node[near end, above] {$A_0^c$};
+            \draw[|-|] (0,0) -- (8,0) node[midway, above]  {$A_0$};
+            \fill[color=red] (7,0) circle (0.03cm) node[above]  {$x_0$};
+
+            \draw[|-|] (0,-1) -- (8,-1) node[near end, above] {$A_1^c$};
+            \draw[|-|] (0,-1) -- (4,-1) node[midway, above] {$A_1$};
+            \fill[color=red] (3,-1) circle (0.03cm) node[above]  {$x_1$};
+                            
+            \draw[|-|] (0,-2) -- (4,-2) node[near end, above] {$A_2^c$};
+            \draw[|-|] (0,-2) -- (2,-2) node[midway, above] {$A_2$};
+            \fill[color=red] (1.5,-2) circle (0.03cm) node[above]  {$x_2$};
+                            
+            \draw[|-|] (0,-3) -- (2,-3) node[near end, above] {$A_3^c$};
+            \draw[|-|] (0,-3) -- (1,-3) node[midway, above] {$A_3$};
+            \fill[color=red] (0.8,-3) circle (0.03cm) node[below]  {$x_3$};
+
+            \fill (1/2,-4) circle   (0.03cm);
+            \fill (1/2,-4.3) circle (0.03cm);
+            \fill (1/2,-4.6) circle (0.03cm);
+
+        \end{tikzpicture}
+    \end{equation*}
+    Notice that this property is merely a consequence of what was showed at the beggining
+    and used at the induction.
+
+    Now comes the interesting part. Firstly, we must look at the sequence
+    of non-empty measurable sets
+    \begin{equation*}
+        B_0 = A_0 \setminus A_1 \in \mathcal{A},
+        B_1 = A_1 \setminus A_2 \in \mathcal{A},
+        \ldots
+        B_i = A_i \setminus A_{i+1} \in \mathcal{A},
+        \ldots
+    \end{equation*}
+    which satisfies $B_i \cap B_j  = \emptyset$, for indexes $i \neq j$.
+    Now, for convinience we will define the collections
+    \begin{equation*}
+        \mathcal{F}_i \definedAs \{B_{2i -1},B_{2i -2} \}, \forall i \in \N
+    \end{equation*}
+    which will look like
+    \begin{equation*}
+        \mathcal{F}_1 = \{B_1, B_0\},
+        \mathcal{F}_2 = \{B_3, B_2\},
+        \mathcal{F}_3 = \{B_5, B_4\},
+        \ldots
+    \end{equation*}
+    Then, remember that the set
+    \begin{equation*}
+        \mathcal{C} \definedAs \{f:\N \to \{0,1\}; \; f \text{ a function} \}
+    \end{equation*}
+    is not countable 
+    (check the Cantor's diagonal argument to prove this fact
+    \footnote{
+        \url{https://en.wikipedia.org/wiki/Cantor's_diagonal_argument}
+    }). 
+    and define the sequence of functions
+    \begin{align*}
+        \xi_i: \{0,1\} & \to \mathcal{F}_i = \{B_{2i -1},B_{2i -2} \}\\
+        j & \mapsto 
+        \begin{cases}
+        B_{2i -2} & \text{if } j = 0;\\
+        B_{2i -1} & \text{if } j = 1,
+        \end{cases}
+    \end{align*}
+    with $i \in \N$. Notice that the set $\mathcal{C}$ is the key to
+    prove the proposition succesfully.
+
+    Finally, we just need to prove that the following
+    function 
+    \begin{align*}
+        \phi: \mathcal{C} & \to \mathcal{A} \\
+        f & \mapsto \bigcup_{i \in \N} \xi_i(f(i)).
+    \end{align*}
+    is injective. Whenever the injection is proved we conclude
+    that
+    \begin{equation*}
+        \card( \mathcal{C} ) = \card( \Imagem(\phi) ) \leq \card( \mathcal{A} )
+    \end{equation*}
+
+    Let $f,g \in \mathcal{C}$ be two
+    different functions. That is, we can find a natural
+    number $j \in \N$ such that $f(j) \neq g(j)$.
+    Without loss of generalization, lets assume that
+    $f(j) = 0$ and $g(j) = 1$.  This gives us
+    \begin{equation*}
+        \xi_j(f(j)) = B_{2j-2},
+        \quad \text{and} \quad,
+        \xi_j(g(j)) = B_{2j-1}.
+    \end{equation*}
+    Thus, from the fact that 
+    \begin{equation*}
+        \forall i\neq j, \; B_i \cap B_j = \emptyset
+    \end{equation*}
+    we obtain
+    \begin{equation*}
+        B_{2j-2} \cap \bigcup_{i \in \N} \xi_i(g(i)) = 
+        \bigcup_{i \in \N} \left( \xi_i(g(i)) \cap B_{2j-2} \right) = 
+        \left(B_{2j-1}\cap B_{2j-2} \right)
+        \cup
+        \bigcup_{i \in \N \setminus \{j\}} \left( \xi_i(g(i)) \cap B_{2j-2} \right)
+        = \emptyset.
+    \end{equation*}
+    Consequently, $\xi(f) \neq \xi(g)$ and $\xi$ is a injective function.
+    Hence, the $\sigma$-algebra is not countable!!!
+\end{proof}
+
+
+\end{document}
+% 1}}}
+
+
