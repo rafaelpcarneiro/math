@@ -1,0 +1,107 @@
+% vim: foldmethod=marker: 
+\documentclass[11pt,a4paper]{article}
+\input{$HOME/math/measureTheory/preamble}
+
+
+%|--- Author, Title and Date {{{1
+\title{Exercise 1 - chapter 4. Book: "Introdução a Medida e Integração"} 
+\author{Rafael Polli Carneiro}
+\date{August 2021} 
+% 1}}}
+
+%|--- Begin Document {{{1
+\begin{document}
+\maketitle
+\tableofcontents
+
+Here we will prove the following statement
+\begin{proposition}
+    Let $(\Omega, \mathcal{A}, \lambda)$  be a measurable space where 
+    $\lambda: \mathcal{A} \to [0,\infty]$  is the Lebesgue extension of the
+    measure $\lambda: \mathcal{S} \to [0,\infty)$,
+    $\mathcal{S}$ is the semi-ring of the limited intervals on $\R$, and
+    \begin{equation*}
+        \lambda(I) = \sup(I) - \inf(I), \forall I \in \mathcal{S}.
+    \end{equation*}
+    Now, for any $\alpha \in (0,1) \subseteq \R$ there is a measurable set
+    $A_0$ whose interior is empty but its measurable is equal to $\alpha$:
+    \begin{equation}
+        \lambda(A_0) = \alpha.
+    \end{equation}
+\end{proposition}
+\begin{proof}
+   %\begin{comment}
+   %Draft zone
+   %\[
+   %S_n = a_1 + a_2 + \ldots + a_n
+   %aS_n = a_2 + a_3 + \ldots + a_{n+1} 
+   %\implies
+   %(1-a)S_n = (a_1 - a_{n+1}) \implies S_n = (a_1 - a_{n+1}) / (1-a)
+   %\]
+   %\end{comment}
+   The idea follows the same steps done to create the ternary set of Cantor.
+   Firstly, notice that, for any $\beta \in \R$ we have
+   \begin{equation*}
+    \sum_{i=1}^{\infty} \frac{\beta}{2^i}
+    =
+    \beta \sum_{i=1}^{\infty} \frac{1}{2^i}
+    =
+    \beta. 
+   \end{equation*}
+   This series gives us the steps necessary to produce each interval that
+   should be taken away from the interval $[0,1]$. We will do it in the 
+   following manner. For $i=1$ we define  
+   \begin{equation*}
+    K_1 = \bigcup_{a \in \gamma_1} \left[a, a+ \frac{1+\alpha}{2^{1+1}}\right],
+   \end{equation*}
+   with $\gamma_1 = \{0, \frac{1+\alpha}{2^{1+1}} + \frac{1-\alpha}{2^{1}}\}$,
+   then, by induction, considering $K_n, \gamma_n$ well defined for all
+   naturals, we set
+   \begin{equation*}
+    K_{n+1}= \bigcup_{a \in \gamma_{n+1}}
+        \left[a, a+ \frac{1+\alpha}{2^{(n+1)+1}}\right],
+   \end{equation*}
+   with
+   \begin{equation*}
+    \gamma_{n+1} = 
+    \left\{
+        a + l(\frac{1+\alpha}{2^{2(n+1)}} + \frac{1-\alpha}{2^{2((n+1)-1)+1}});
+        \; l = 0 \text{ or } l = 1 \text{ and } a \in \gamma_n 
+    \right\}.
+   \end{equation*}
+    This is the same done at the construction of the Cantor's set, 
+    differing only at the lenght of the slices being cut at each
+    interaction. 
+
+    It is worth mentioning that $1/4$ of each interval cut at interaction
+    $n$  is less than the lenght of the intervals left at the same step
+    of the iteraction. That is
+    \begin{equation*}
+        \frac{1-\alpha}{2^{2(n-1)+1}} 2^{-2} < 
+        \frac{1+\alpha}{2^{2(n)}}.
+    \end{equation*}
+
+    Now, as the standard construction, we notice that for all 
+    $n \in \N$  $K_n$ are closed sets (finite union of closed sets)
+    and therefore the set
+    \begin{equation*}
+        K = \bigcap_{n \in \N} K_n
+    \end{equation*}
+    is closed as well. Since we are working with the $\sigma-$algebra
+    of the borelian sets. We conclude that $K$ is a measurable set.
+    Its interior is empty. In fact, since we are shrinking down the
+    lenght of each interval within $K_n$  to zero, none interval can
+    be included at $K$.  
+    
+    Finally, recall that at each step of the induction we remove
+    $2^{n-1}$ disjoint intervals of length equal to
+    $\frac{1-\alpha}{2^{2(n-1)+1}}$.  Thus
+    \begin{equation*}
+    \lambda(K) = 1 - \sum_{n=1}^{\infty} 2^{n-1}\frac{1-\alpha}{2^{2(n-1)+1}}
+         = 1 - (1-\alpha)\sum_{n=1}^{\infty} 2^{-n}
+         = \alpha
+    \end{equation*}
+
+\end{proof}
+\end{document}
+% 1}}}

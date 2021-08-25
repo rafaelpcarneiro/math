@@ -1,0 +1,64 @@
+% vim: foldmethod=marker: 
+
+%|--- Packages and Configs {{{1
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumerate}
+
+\usepackage{bbm} %% \mathbbm{1} gives you the identity function symbol 1
+
+%%% allows you to insert many figures indexed by (a), (b), ... on
+%%% a figure environment
+\usepackage{float} 
+\usepackage[caption = false]{subfig}
+
+\usepackage{tikz}
+\usetikzlibrary{snakes} %% produces curly arrows on tikz
+\usetikzlibrary{matrix} %% for commutative diagrams
+\usetikzlibrary{arrows}
+
+\usepackage{ifthen} %% gives if conditionals when using newcommand
+
+%% Garamond fonts 
+%% \usepackage{ebgaramond}
+%% \usepackage[ugm]{mathdesign}
+% 1}}}
+
+%|--- Math operators {{{1
+\DeclareTextFontCommand {\emph}{\bfseries\em} %%\emph{} in bold and italic
+
+
+\DeclareMathOperator {\R}{\mathbb{R}}
+\DeclareMathOperator {\Q}{\mathbb{Q}}
+\DeclareMathOperator {\N}{\mathbb{N}}
+\DeclareMathOperator {\Z}{\mathbb{Z}}
+\DeclareMathOperator {\card}{card}
+\DeclareMathOperator {\Id}{\mathbbm{1}}
+\DeclareMathOperator {\definedAs}{\vcentcolon = }
+\DeclareMathOperator {\Imagem}{ Im }
+% 1}}}
+
+%|--- Theorems {{{1
+\theoremstyle{remark}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{definition}
+\newtheorem{observation}{Observation}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{notation}{Notation}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+% 1}}}
+
+
