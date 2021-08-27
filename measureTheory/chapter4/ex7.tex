@@ -156,107 +156,102 @@ Notice that
         & = 0.
    \end{align*}
 \end{enumerate}
-consequently, we conclude that $\sim$ is an equivalence relation and
+Consequently, we conclude that $\sim$ is an equivalence relation and
 therefore we can reduce $\mathcal{A}$ into its equivalence classes  
 \begin{equation*}
     \mathcal{A} / \sim = \{ [A]; \; \forall A \in \mathcal{A} \}
 \end{equation*}
 where
 \begin{equation*}
-    \forall A \in \mathcal{A}, [A] = \{ B \in \mathcal{A}; \; B \sim A\}.
+    \forall A \in \mathcal{A}, [A] = \{ B \in \mathcal{A}; \; B \sim A \}.
 \end{equation*}
 
-Now we need set operators into the set $\mathcal{A}/\sim$.
-Define, for all $[A], [B] \in \mathcal{A}/\sim $:
+Now we are up to define a partial order over the sets on $\mathcal{A}/\sim$.  
+Let $A, B \in \mathcal{A}/\sim$ be any sets, then we define
 \begin{equation*}
-   [A] \sqcup [B] = [A \cup B],
-   \quad
-   [A] \sqcap [B] = [A \cap B]
-\end{equation*}
-and
-\begin{equation*}
-    [A] \setminus [B] = [A \setminus B]
+    [A] \preceq [B] \iff \mu (A \setminus B ) = 0.
 \end{equation*}
 
-Before we carry on, notice that: 
-\begin{itemize}
-    \item  $\mathcal{A} / \sim$ is still a $\sigma-$algebra;    
-    \item and $\mu$ can be extended to such $\sigma-$algebra.
-\end{itemize}
-
-\subsection{ $\mathcal{A} / \sim$ is still a $\sigma-$algebra }
-
-Whenever operating with equivalence relations, one must show
-that the operations extended from its base are well definied.
-
-We start by the union.
-Let $A_0, A_1, B_0, B_1$ be measurable sets satisfying
+First we need to inspect if what is written above is well defined. 
+That is, it doens't depend on the representations of the classes.
+But first lets just define a notation which will decrease the notation.
+Fo any sets $A,B$ we define
 \begin{equation*}
-    A_0 \sim A_1 \quad \text{ and } \quad B_0 \sim B_1.
+    A \Delta B = (A \setminus B) \cup (B \setminus A).
 \end{equation*}
-Let's check what is the value of
+
+Now we will show that $\preceq$ is well define.  
+Fix sets satisfying
 \begin{equation*}
-    [A_1] \sqcup [B_1] =  [A_1 \cup B_1].
+    A_0 \sim A_1 \quad \text{and} \quad B_0 \sim B_1.
 \end{equation*}
-We just need to inspect that
-\begin{equation*}
-    A_1 \cup B_1 \sim A_0 \cup B_0.
-\end{equation*}
-Let's do it
+Then,
 \begin{align*}
-    &\mu\Big( ((A_1 \cup B_1) \setminus ( A_0 \cup B_0) )  \cup  
-       ((A_0 \cup B_0) \setminus ( A_1 \cup B_1) ) \Big)\\
-	&\qquad=
-        \mu( ((A_1 \cup B_1) \cap ( A_0^c \cap B_0^c) ) \cup  
-           ((A_0 \cup B_0) \cap ( A_1^c \cap B_1^c) )\\
-	&\qquad=
-        \mu( ((A_1 \cap A_0^c \cap B_0^c) \cup (B_1 \cap A_0^c \cap B_0^c))
-           \cup
-           ((A_0 \cap A_1^c \cap B_1^c) \cup (B_0 \cap A_1^c \cap B_1^c))\\
-    & \qquad \leq
-        \mu( A_1 \cap A_0^c) \mu (B_1 \cap B_0^c)
-        +
-        \mu (A_0 \cap A_1^c) \mu(B_0 \cap B_1^c))\\
-	& \qquad =
-        0.
+    \mu(B_1 \setminus A_1)
+        & =
+        \mu(B_1 \cap A_1^c) \\
+        & =
+        \mu(B_1 \cap (B_0 \cup B_0^c) \cap A_1^c) \\
+        & =
+        \mu(B_1 \cap B_0 \cap A_1^c) + 
+        \mu(B_1 \cap B_0^c \cap A_1^c) \\
+        & =
+        \mu(B_1 \cap B_0 \cap A_1^c) \\
+        & =
+        \mu(B_1 \cap B_0 \cap A_1^c) +
+        \mu(B_1^c \cap B_0 \cap A_1^c)   \\
+        & =
+        \mu(B_0 \cap A_1^c)  \\
+        & =
+        \mu(B_0 \cap A_1^c \cap (A_0 \cup A_0^c))  \\
+        & =
+        \mu(B_0 \cap A_1^c \cap A_0^c) \\
+        & =
+        \mu(B_0 \cap A_1^c \cap A_0^c) +
+        \mu(B_0 \cap A_1  \cap A_0^c)  \\
+        & =
+        \mu(B_0 \cap A_0^c).\\
 \end{align*}
-As a consequence
+Hence, what we conlude is
+\begin{equation*}
+    0 = \mu(B_0 \setminus A_0) \iff 0 = \mu(B_1 \setminus A_1)
+\end{equation*}
+which means $\preceq$ is well defined.  
+
+Now we need to show that $\preceq$ is indeed a partial order.
+Consider $A,B,C$ any measurable set. Thus
+\begin{enumerate}[(i)]
+    \item $[A] \preceq [A]$ (immediate to check); 
+
+    \item $[A] \preceq [B]$ and $[B] \preceq [A]$  implies that  
     \begin{equation*}
-    A_1 \cup B_1 \sim A_0 \cup B_0 \implies
-    [A_1 \cup B_1] = [ A_0 \cup B_0 ]
+        \mu(A \setminus B) = \mu(B \setminus A) = 0
     \end{equation*}
-and we conclude that the unio is well defined.
+    which pretty much meas $A \sim B \implies [A] = [B]$.  
 
-For the operator $\sqcap$ we will have the same arguments above and
-hence I won't do it. It only rest to check the complementary operation.
+    \item $[A] \preceq [B]$ and $[B] \preceq [C]$ provide us with
+    \begin{align*}
+        \mu(A \setminus C)
+            &=
+            \mu(A \cap C^c \cap (B \cup B^c)) \\
+            &=
+            \mu(A \cap C^c \cap B) +
+            \mu(A \cap C^c \cap B^c) \\
+            & \leq
+            \mu(C^c \cap B) + \mu(A  \cap B^c) \\
+            & = 0.
+    \end{align*}
+    Consequently, $[A] \preceq [C]$  
+\end{enumerate}
 
-To show that taking the complementar is still a well defined operation
-we nee to show that
+After all this we have just concluded that 
+$(\mathcal{A}/\sim, \preceq)$ is a partially ordered set.
+An important property from the equivalence class is:
 \begin{equation*}
-    [A_1] \setminus [B_1] = [A_1 \setminus B_1]
+    \forall A \in \mathcal{A}, \forall B,C \in \mathcal{A}/\sim
+    \Big( 
+        \mu(B) = \mu(C)
+    \Big).
 \end{equation*}
-is equal to the same above but changing the indexes to $0$.   
-Again, we need to show that $A_1 \setminus B_1 \sim A_0 \setminus B_0$.
-This is done below
-\begin{align*}
-    &\mu( (A_1 \setminus B_1) \setminus (A_0 \setminus B_0) 
-      \cup
-     (A_0 \setminus B_0) \setminus (A_1 \setminus B_1) ) \\
-        & \qquad=
-        \mu( ((A_1 \cap B_1^c) \cap (A_0 \cap B_0^c)^c)
-          \cup
-         ((A_0 \cap B_0^c) \cap (A_1 \cap B_1^c)^c) )\\
-        & \qquad=
-        \mu( ((A_1 \cap B_1^c) \cap (A_0^c \cap B_0))
-          \cup
-         ((A_0 \cap B_0^c) \cap (A_1^c \cap B_1)) )\\
-        & \qquad \leq
-         0.
-\end{align*}
-
-As a result we have shown that the operations ove classes are well defined.
-Now we need to prove that $\mathcal{A}/\sim$  
 \end{document}
 % 1}}}
-
-
