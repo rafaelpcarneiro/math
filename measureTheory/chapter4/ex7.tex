@@ -1,0 +1,262 @@
+% vim: foldmethod=marker: 
+\documentclass[11pt,twoside,a4paper]{article}
+
+\input{$HOME/math/measureTheory/preamble}
+
+%|--- Author, Title and Date {{{1
+\title{Exercise 7 - chapter 4. Book: "Introdução a Medida e Integração"} 
+\author{Rafael Polli Carneiro}
+\date{August 2021} 
+% 1}}}
+
+%|--- Begin Document {{{1
+\begin{document}
+\maketitle
+
+\begin{definition}
+    Let $(\Omega, \mathcal{A}, \mu)$ be a measurable space. Then, we say that 
+    any measurable set $A \in \mathcal{A}$ is an atom if
+    \begin{equation*}
+        \forall B \in \mathcal{A}
+        \left( 
+            B \subseteq A \implies \mu(B) = 0 \text{ or } \mu(B) = \mu(A).
+        \right)
+    \end{equation*}
+    Thus we say that a masure $\mu$ is non-atomic if it doesn't admit an
+    atomic measurable space as element of its $\sigma-$algebra. In other
+    words, $\mu$ is non-atomic if
+    \begin{equation*}
+        \forall A \in \mathcal{A},
+        \exists B \in \mathcal{A}\setminus\{\emptyset\}
+        \left(
+        B \subseteq A \text{ and } 0 < \mu(B) < \mu(A)
+        \right)
+    \end{equation*}
+\end{definition}
+
+Now that we know the meaning of a measure being non-atomic we will proove
+the following
+\begin{proposition}
+    Let $(\Omega, \mathcal{A},\mu)$ be a measurable space and
+    $\mu$ a non-atomic measure. Then for any measurable set $A \in \mathcal{A}$    
+    such that
+    \begin{equation*}
+        \mu(A)  < \infty
+    \end{equation*}
+    we have guaranteed that for any real number $\alpha \in \R$
+    satisfying
+    \begin{equation*}
+        0 < \alpha < \mu(A)        
+    \end{equation*}
+    there is $B in \mathcal{A}$ where the equality
+    \begin{equation*}
+        \mu(B)  = \alpha
+    \end{equation*}
+    holds.
+\end{proposition}
+\begin{proof}
+    The proof for this proposition is quite trick. I will make use of the
+    Zorn's Lemma to proceed with the proof 
+    (check the section below \ref{sec:zorn}).
+\end{proof}
+
+\section {Zorn's Lemma} \label{sec:zorn}
+We say that a non empty set $X$ is endowed with a partial order $\leq$    
+if
+\begin{enumerate}[(i)]
+    \item $\leq$ is \textit{reflexive}, which means
+    \begin{equation*}
+        \forall x \in X ( x \leq x)
+    \end{equation*}
+
+    \item $\leq$ is \textit{anti-simmetric}:
+    \begin{equation*}
+        \forall x,y \in X ( x \leq y, y \leq x \implies x = y )
+    \end{equation*}
+    \item $\leq$ is \textit{transitive}:
+    \begin{equation*}
+        \forall x,y,z \in X (x \leq y, y \leq z \implies x \leq z).
+    \end{equation*}
+\end{enumerate}
+Every set $X$ in posse of a partial order is called as a partially ordered   
+set. 
+
+Before we adress the Zorn's Lemma we must introduction some notions.
+Consider $X$ a partially ordered set and $Y \subseteq X$ a subset.
+We say that 
+\begin{enumerate}
+    \item $x_0 \in X$ is an \textit{upper bound} of $Y$ if
+    $\forall y \in Y, y \leq x_0$;
+
+    \item $x_0 \in X$ is a \textit{maximal element} of $X$ if    
+    $\forall x \in X, x \leq x_0$;
+
+    \item $Y$ is a \textit{chain} if 
+    $\forall x,y \in Y, x \leq y \text{ or } y \leq x$.
+\end{enumerate}
+
+Now we are able of stating the Zorn's Lemma, which is a proposition
+equivalent to the axiom of choice
+\begin{proposition}
+    Let $X, \leq$ be a partially ordered set. If any chain
+    $Y \subseteq X$ admits an upper bound on $X$, that is
+    \begin{equation*}
+        \forall Y \subseteq X, \forall y \in Y, \exists y_0 \in X
+        \left(
+          Y \text{ non empty and it is a chain } \implies y \leq y_0
+        \right),
+    \end{equation*}
+    then $X$ does have a maximal element.  
+\end{proposition}
+
+\section{Inducing a partial order into a measurable space}
+As usual, consider $(\Omega, \mathcal{A}, \mu)$ a measurable space.
+($\Omega$ non empty). We say that two measurable sets $X,Y \in \mathcal{A}$  
+are almost equal if 
+\begin{equation*}
+    \mu( X \setminus Y \cup Y \setminus X ) = 0.
+\end{equation*}
+From this definition we state the following relation
+\begin{equation*}
+    \forall X, Y \in \mathcal{A}
+    X \sim Y \iff 
+    \mu( X \setminus Y \cup Y \setminus X ) = 0.
+\end{equation*}
+Notice that
+\begin{enumerate}[(i)]
+   \item $\forall X \in \mathcal{A} \implies X \sim X$;
+   
+   \item $\forall X, Y \in \mathcal{A}$, clearly $X \sim Y$ 
+   and $Y \sim X$;
+
+   \item $\forall X, Y, Z \in \mathcal{A}$ such that
+   \begin{equation*}
+        X \sim Y \quad \text{and} \quad Y \sim Z
+   \end{equation*}
+   then 
+   \begin{align*}
+    \mu( Z \setminus X \cup X \setminus Z )
+        & = \mu( [(Z \setminus X) \cup (X \setminus Z)] \cap (Y \cup Y^c) )\\
+        & = \mu( [(Z \setminus X)\cap (Y \cup Y^c)]
+               \cup 
+               [(X \setminus Z) \cap (Y \cup Y^c)] )\\
+        & = \mu( [(Z \cap X^c \cap Y) \cup (Z \cap X^c \cap Y^c)]
+               \cup 
+               [(X \cap Z^c \cap Y)  \cup (X \cap Z^c \cap Y^c)] )\\
+        & \leq
+            \mu( Z \cap X^c \cap Y)
+            + \mu(Z \cap X^c \cap Y^c)
+            + \mu(X \cap Z^c \cap Y) 
+            + \mu(X \cap Z^c \cap Y^c)\\
+        & \leq
+            \mu(X^c \cap Y)
+            + \mu(Z \cap Y^c)
+            + \mu(Z^c \cap Y) 
+            + \mu(X \cap Y^c)\\
+        & = 0.
+   \end{align*}
+\end{enumerate}
+consequently, we conclude that $\sim$ is an equivalence relation and
+therefore we can reduce $\mathcal{A}$ into its equivalence classes  
+\begin{equation*}
+    \mathcal{A} / \sim = \{ [A]; \; \forall A \in \mathcal{A} \}
+\end{equation*}
+where
+\begin{equation*}
+    \forall A \in \mathcal{A}, [A] = \{ B \in \mathcal{A}; \; B \sim A\}.
+\end{equation*}
+
+Now we need set operators into the set $\mathcal{A}/\sim$.
+Define, for all $[A], [B] \in \mathcal{A}/\sim $:
+\begin{equation*}
+   [A] \sqcup [B] = [A \cup B],
+   \quad
+   [A] \sqcap [B] = [A \cap B]
+\end{equation*}
+and
+\begin{equation*}
+    [A] \setminus [B] = [A \setminus B]
+\end{equation*}
+
+Before we carry on, notice that: 
+\begin{itemize}
+    \item  $\mathcal{A} / \sim$ is still a $\sigma-$algebra;    
+    \item and $\mu$ can be extended to such $\sigma-$algebra.
+\end{itemize}
+
+\subsection{ $\mathcal{A} / \sim$ is still a $\sigma-$algebra }
+
+Whenever operating with equivalence relations, one must show
+that the operations extended from its base are well definied.
+
+We start by the union.
+Let $A_0, A_1, B_0, B_1$ be measurable sets satisfying
+\begin{equation*}
+    A_0 \sim A_1 \quad \text{ and } \quad B_0 \sim B_1.
+\end{equation*}
+Let's check what is the value of
+\begin{equation*}
+    [A_1] \sqcup [B_1] =  [A_1 \cup B_1].
+\end{equation*}
+We just need to inspect that
+\begin{equation*}
+    A_1 \cup B_1 \sim A_0 \cup B_0.
+\end{equation*}
+Let's do it
+\begin{align*}
+    &\mu\Big( ((A_1 \cup B_1) \setminus ( A_0 \cup B_0) )  \cup  
+       ((A_0 \cup B_0) \setminus ( A_1 \cup B_1) ) \Big)\\
+	&\qquad=
+        \mu( ((A_1 \cup B_1) \cap ( A_0^c \cap B_0^c) ) \cup  
+           ((A_0 \cup B_0) \cap ( A_1^c \cap B_1^c) )\\
+	&\qquad=
+        \mu( ((A_1 \cap A_0^c \cap B_0^c) \cup (B_1 \cap A_0^c \cap B_0^c))
+           \cup
+           ((A_0 \cap A_1^c \cap B_1^c) \cup (B_0 \cap A_1^c \cap B_1^c))\\
+    & \qquad \leq
+        \mu( A_1 \cap A_0^c) \mu (B_1 \cap B_0^c)
+        +
+        \mu (A_0 \cap A_1^c) \mu(B_0 \cap B_1^c))\\
+	& \qquad =
+        0.
+\end{align*}
+As a consequence
+    \begin{equation*}
+    A_1 \cup B_1 \sim A_0 \cup B_0 \implies
+    [A_1 \cup B_1] = [ A_0 \cup B_0 ]
+    \end{equation*}
+and we conclude that the unio is well defined.
+
+For the operator $\sqcap$ we will have the same arguments above and
+hence I won't do it. It only rest to check the complementary operation.
+
+To show that taking the complementar is still a well defined operation
+we nee to show that
+\begin{equation*}
+    [A_1] \setminus [B_1] = [A_1 \setminus B_1]
+\end{equation*}
+is equal to the same above but changing the indexes to $0$.   
+Again, we need to show that $A_1 \setminus B_1 \sim A_0 \setminus B_0$.
+This is done below
+\begin{align*}
+    &\mu( (A_1 \setminus B_1) \setminus (A_0 \setminus B_0) 
+      \cup
+     (A_0 \setminus B_0) \setminus (A_1 \setminus B_1) ) \\
+        & \qquad=
+        \mu( ((A_1 \cap B_1^c) \cap (A_0 \cap B_0^c)^c)
+          \cup
+         ((A_0 \cap B_0^c) \cap (A_1 \cap B_1^c)^c) )\\
+        & \qquad=
+        \mu( ((A_1 \cap B_1^c) \cap (A_0^c \cap B_0))
+          \cup
+         ((A_0 \cap B_0^c) \cap (A_1^c \cap B_1)) )\\
+        & \qquad \leq
+         0.
+\end{align*}
+
+As a result we have shown that the operations ove classes are well defined.
+Now we need to prove that $\mathcal{A}/\sim$  
+\end{document}
+% 1}}}
+
+
